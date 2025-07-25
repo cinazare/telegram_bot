@@ -42,6 +42,10 @@ def react_to_cina(message):
     bot.send_message(message.chat.id, "hello cina ")
 
 
+@bot.edited_message_handler(func=lambda message: True)
+def edited_message(message):
+    bot.send_message(message.chat.id, "oh you edited your message mother fucker")
+
 # if you write two of the message_handler decorator in one line in one paranteses it will get 'and' format
 # if you write two decorators for one function it will get 'or' format
 # if two functions conditions were true the function which came first it will be called 
