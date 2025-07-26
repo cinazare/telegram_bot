@@ -1,5 +1,6 @@
 import telebot
 import os
+from telebot.types import ReplyKeyboardMarkup, KeyboardButton
 from dotenv import load_dotenv
 load_dotenv()
 import pprint
@@ -52,21 +53,31 @@ bot = telebot.TeleBot(API_KEY)
 
 #now we want to set a sequence of happenings to get some data from user
 #there somthing called register_next_step_handler in the documentation
-@bot.message_handler(commands=['setInfo'])
-def set_info(message):
-    bot.send_message(message.chat.id, "what is your name?")
-    bot.register_next_step_handler(message, get_name)
+# @bot.message_handler(commands=['setInfo'])
+# def set_info(message):
+#     bot.send_message(message.chat.id, "what is your name?")
+#     bot.register_next_step_handler(message, get_name)
 
 
-def get_name(message):
-    name = message.text
-    bot.send_message(message.chat.id, f'what is your last name?')
-    bot.register_next_step_handler(message, get_last_name, name)
+# def get_name(message):
+#     name = message.text
+#     bot.send_message(message.chat.id, f'what is your last name?')
+#     bot.register_next_step_handler(message, get_last_name, name)
 
 
-def get_last_name(message, name):
-    last_name = message.text
-    bot.send_message(message.chat.id, f'welcome {name} {last_name} to our tiny little world')
+# def get_last_name(message, name):
+#     last_name = message.text
+#     bot.send_message(message.chat.id, f'welcome {name} {last_name} to our tiny little world')
+
+#lets talk about buttons 
+#all of the buttons you define in your code will be in an object and then it will be sent to client
+@bot.message_handler(commands=['start'])
+def using_bottom(message):
+    markup = ReplyKeyboardMarkup(resize_keyboard=True)
+    markup.add(KeyboardButton('hi'))
+    markup.add('hello')
+
+    bot.send_message(message.chat.id, 'hello welcome to our comunity', reply_markup=markup)
 
 
 bot.infinity_polling()
