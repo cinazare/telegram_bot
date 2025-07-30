@@ -1,6 +1,6 @@
 import telebot
 import os
-from telebot.types import ReplyKeyboardMarkup, KeyboardButton
+from telebot.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardButton, InlineKeyboardMarkup
 from dotenv import load_dotenv
 load_dotenv()
 import pprint
@@ -71,13 +71,56 @@ bot = telebot.TeleBot(API_KEY)
 
 #lets talk about buttons 
 #all of the buttons you define in your code will be in an object and then it will be sent to client
-@bot.message_handler(commands=['start'])
-def using_bottom(message):
-    markup = ReplyKeyboardMarkup(resize_keyboard=True)
-    markup.add(KeyboardButton('hi'))
-    markup.add('hello')
+# @bot.message_handler(commands=['start'])
+# def using_bottom(message):
+#     markup = ReplyKeyboardMarkup(resize_keyboard=True)
+#     markup.add(KeyboardButton('hi'))
+#     markup.add('hello')
 
-    bot.send_message(message.chat.id, 'hello welcome to our comunity', reply_markup=markup)
+#     bot.send_message(message.chat.id, 'hello welcome to our comunity', reply_markup=markup)
 
+#inline keyboard 
+# from telebot.util import quick_markup
+
+# @bot.message_handler(regexp="hello")
+# def inline_keyboard(message):
+#     markup = InlineKeyboardMarkup()
+#     three = InlineKeyboardButton(text='scenario three', callback_data='three')
+#     two = InlineKeyboardButton(text='scenario two', callback_data='two') 
+#     one = InlineKeyboardButton(text='scenario one', callback_data='one') 
+#     markup.add(one)
+#     markup.add(three)
+#     markup.add(two)
+#     bot.send_message(message.chat.id, 'hello welcome to our comunity', reply_markup=markup)
+
+
+# @bot.callback_query_handler(func=lambda call: True)
+# def call_back_hanler(call):
+#     pprint.pprint(call.data, width=4)
+#     pprint.pprint(call.__dict__)
+#     if call.data == 'one':
+#         bot.delete_message(chat_id=call.message.chat.id, message_id=call.message.id)
+#         markup = InlineKeyboardMarkup()
+#         exit = InlineKeyboardButton(text='exit', callback_data='exit')
+#         five = InlineKeyboardButton(text='scenario five', callback_data='five') 
+#         six = InlineKeyboardButton(text='scenario six', callback_data='six') 
+#         markup.add(six)
+#         markup.add(exit)
+#         markup.add(five)
+#         bot.send_message(call.message.chat.id, 'this is second scenario', reply_markup=markup)
+#     if call.data == 'two':
+#         bot.delete_message(chat_id=call.message.chat.id, message_id=call.message.id)
+#         markup = InlineKeyboardMarkup()
+#         seven = InlineKeyboardButton(text='scenario seven', callback_data='seven')
+#         eight = InlineKeyboardButton(text='scenario eight', callback_data='eight') 
+#         nine = InlineKeyboardButton(text='scenario nine', callback_data='nine') 
+#         markup.add(nine)
+#         markup.add(seven)
+#         markup.add(eight)
+#         bot.send_message(call.message.chat.id, 'this is third scenario', reply_markup=markup)
+#     if call.data == 'exit':
+#         bot.delete_message(chat_id=call.message.chat.id, message_id=call.message.id)
+        
+    
 
 bot.infinity_polling()
