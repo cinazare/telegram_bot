@@ -120,7 +120,20 @@ bot = telebot.TeleBot(API_KEY)
 #         bot.send_message(call.message.chat.id, 'this is third scenario', reply_markup=markup)
 #     if call.data == 'exit':
 #         bot.delete_message(chat_id=call.message.chat.id, message_id=call.message.id)
-        
+
+@bot.message_handler(commands=['test_files'])
+def sending_files_handler(message):
     
+    markup = InlineKeyboardMarkup()
+    voice = InlineKeyboardButton(text='voice', callback_data='voice')
+    video = InlineKeyboardButton(text='video', callback_data='video')
+    document = InlineKeyboardButton(text='document', callback_data='document')
+    markup.add(voice)
+    markup.add(video)
+    markup.add(document)
+    bot.send_message(message.chat.id, 'which file option do you want?', reply_markup=markup)
+    
+
+
 
 bot.infinity_polling()
