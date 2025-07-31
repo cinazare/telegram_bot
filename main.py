@@ -134,6 +134,23 @@ def sending_files_handler(message):
     bot.send_message(message.chat.id, 'which file option do you want?', reply_markup=markup)
     
 
+@bot.callback_query_handler(func=lambda call: call.message.text == 'which file option do you want?')
+def file_callback_handler(call):
+    if call.data == "voice":
+        pprint.pprint(call.__dict__)
+        voice = open('./test_files/file_example_MP3_1MG.mp3', 'rb')
+        bot.delete_message(chat_id=call.message.chat.id, message_id=call.message.message_id)
+        bot.send_chat_action(chat_id=call.message.chat.id, action="upload_voice")
+        bot.send_audio(chat_id=call.message.chat.id , audio=voice)
+    if call.data == "video":
+        video = open('./test_files/file_example_MP4_480_1_5MG.mp4', 'rb')
+        bot.delete_message(chat_id=call.message.chat.id, message_id=call.message.message_id)
+
+        bot.send_video(chat_id=call.message.chat.id, video=video)
+    if call.data == "document":
+        doc = open('./test_files/file-sample_100kB.doc', 'rb') 
+        bot.delete_message(chat_id=call.message.chat.id, message_id=call.message.message_id)
+        bot.send_document(chat_id=call.message.chat.id, document=doc)
 
 
 bot.infinity_polling()
